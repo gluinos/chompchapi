@@ -19,6 +19,9 @@ from keras.preprocessing.text import Tokenizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
+from reduction import num_metacategories
+
+
 
 def generate_sequences(data):
     tokenizer = Tokenizer()
@@ -54,11 +57,11 @@ def create_model():
     model.add(Embedding(vocab_size, vector_len, input_length=max_sequence_length))
     model.add(LSTM(hidden_size, return_sequences=True))
     model.add(Activation('relu'))
-    model.add(Dropout(0.25)
+    model.add(Dropout(0.25))
 
     model.add(LSTM(hidden_size))
     model.add(Activation('relu'))
-    model.add(Dropout(0.25)
+    model.add(Dropout(0.25))
 
     model.add(Dense(100, activation='relu'))
     model.add(Dropout(0.50))
@@ -68,6 +71,20 @@ def create_model():
 
 
 if __name__ == "__main__":
+
+
+    df = pd.read_pickle("combined_data.pkl")
+
+    # print df.head()
+
+    print (df.text)
+
+    # Unpack column by column into an num_review-by-num_metacategories matrix again
+    target_vecs = np.vstack([
+        df["cat_{}".format(i)] for i in range(num_metacategories)
+        ]).T
+    print (target_vecs)
+
 
     data_path = ''
     epochs = 10

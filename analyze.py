@@ -9,11 +9,11 @@ if __name__ == "__main__":
 
     # print df.head()
 
-    print df.text
+    print (df.text)
 
     # Unpack column by column into an num_review-by-num_metacategories matrix again
     target_vecs = np.vstack([
         df["cat_{}".format(i)] for i in range(num_metacategories)
-        ])
-    print target_vecs
+        ]).T
+    print (target_vecs)
 
