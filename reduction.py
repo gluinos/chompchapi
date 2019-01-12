@@ -4,16 +4,23 @@ from tqdm import tqdm
 import json
 from ast import literal_eval
 
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
 # pd.set_option('display.expand_frame_repr', False)
 
 metacategories = [
-    ["Coffee & Tea", "Fast Food", "Specialty Food", "Sandwiches", "Bakeries", "Cafes", "Delis", "Salad","Vegetarian", ],
-    ["Burgers", "Breakfast & Brunch", "Nightlife", "Wine & Spirits", "Beer", "Bars", "Breweries", "Wine Bars", "Pubs", "Sports Bars", "Cocktail",],
+    ["Coffee & Tea", "Fast Food", "Specialty Food", "Sandwiches", "Bakeries", "Cafes", "Delis",],
+    ["Salad","Vegetarian", "Breakfast & Brunch",],
+    ["Nightlife", "Wine & Spirits", "Beer", "Bars", "Breweries", "Wine Bars", "Pubs", "Sports Bars", "Cocktail",],
     ["Mexican", "Latin American", "Tapas/Small Plates", "Tacos","Tex-Mex", ],
-    ["American (Traditional)", "American (New)", "Hot Dogs", "Barbeque", "Southern", "Hawaiian", "Pizza", "Soup", "Diners", ],
+    ["American (Traditional)", "American (New)", "Hot Dogs", "Burgers", "Diners", ],
+    ["Barbeque", "Southern", "Hawaiian", "Pizza", "Soup", "Diners", ],
     ["Chicken Wings", "Health Markets", "Bagels", "Seafood", "Seafood Markets", "Butcher", "Cheese Shops", "Steakhouses", "Coffee",],
-    ["Ethnic Food", "Italian", "French", "Greek", "Asian Fusion", "Chinese", "Noodles", "Ramen", "Korean", "Taiwanese", "Sushi Bars", "Indian", "Japanese", "Bubble Tea", "Vietnamese", "Poke", "Thai",],
-    ["Desserts", "Ice Cream & Frozen Yogurt", "Candy Stores", "Donuts", "Shaved Ice", "Gelato", "Delicatessen", "Creperies",],
+    ["Ethnic Food", "Italian", "French", "Greek"], 
+    ["Asian Fusion", "Chinese", "Noodles", "Ramen", "Korean", "Taiwanese", "Sushi Bars", "Japanese", "Bubble Tea", "Vietnamese", "Poke", "Thai",],
+    ["Indian", "Thai", "Pakistani", ],
+    ["Desserts", "Ice Cream & Frozen Yogurt", "Candy Stores", "Donuts", "Shaved Ice", "Gelato", "Delicatessen", "Creperies", "Pancakes", "Waffles" ],
 ]
 num_metacategories = len(metacategories)
 d_metacategories = {}
@@ -437,10 +444,20 @@ if __name__ == "__main__":
     for i in range(num_metacategories):
         df["cat_{}".format(i)] = all_vecs[:,i]
 
+    stop_words = set(stopwords.words('english'))
+    stop_words.update(set(["'m", "n't", "'ve", "'re", "'s"]))
+    new_texts = []
+    for text in tqdm(df["text"]):
+        word_tokens = word_tokenize(text.lower())
+        filtered_text = " ".join([w for w in word_tokens if not w in stop_words])
+        new_texts.append(filtered_text)
+    new_texts = np.array(new_texts)
+    df["text"] = np.array(new_texts)
+
     # # Unpack column by column into an num_review-by-num_metacategories matrix again
     # target_vecs = np.vstack([
     #     df["cat_{}".format(i)] for i in range(num_metacategories)
-    #     ])
+    #     ]).T
     # print target_vecs
 
     df.to_pickle("combined_data.pkl")
