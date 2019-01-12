@@ -1,4 +1,6 @@
+import os
 import json
+import pandas as pd
 
 import tensorflow as tf
 import numpy as np
@@ -18,30 +20,29 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
 
-# # truncate and pad input sequences
-
-
-# X_train = tokenizer.texts_to_sequences(sentences_train)
-# X_test = tokenizer.texts_to_sequences(sentences_test)
-
-# max_words_length = 500
-# X_train = sequence.pad_sequences(X_train, maxlen=max_review_length)
-# X_test = sequence.pad_sequences(X_test, padding=post, maxlen=max_words_length)
-
-
-
 def generate_sequences(data):
     tokenizer = Tokenizer()
-    tokenizer.fit_on_texts([data])
+    tokenizer.fit_on_texts(data)
     vocab_size = len(tokenizer.word_index) + 1
     print("vocab_size: ", vocab_size)
-    
+    x = tokenizer.texts_to_sequences(data)
+    return x
+
+
+# def one_hot_encode_labels(labels):
+#     return labels
+
+
 	
 def preprocess_data(input_data):
-    X_train, X_test, y_train, y_test = train_test_split(sentences, labels, test_size=0.25, random_state=1000)
+    X_train, X_test, y_train, y_test = train_test_split(input_data[0], input_data[1], test_size=0.25, random_state=1000)
+    
+    X_train = generate_sequences(X_train)
+    X_test = generate_sequences(X_test)
+    X_train = pad_sequences(X_train, padding='post', maxlen=max_sequence_length)
+    X_train = pad_sequences(X_test, padding='post', maxlen=max_sequence_length)
 
-    #Need to turn our words into vectors
-    return x, y
+    return X_train, X_test, y_train, y_test
 
 
 
@@ -67,27 +68,40 @@ def create_model():
 
 
 if __name__ == "__main__":
-    data_dir = ''
-    epochs = 1
-    batch_size = 1
+
+    data_path = ''
+    epochs = 10
+    batch_size = 16
     # vocab_size = 10000  #The size of vocabulary list being fed to network
     hidden_size = 100   # The number of hidden neurons for our LSTM layer
     vector_len = 50
     max_sequence_length = 500
-    num_categories = len()
+    num_categories = 6
 
 
+    x_train, x_test, y_train, y_test = preprocess_data(data_path)
 
+    model = create_model()
 
-    model1 = create_model()
-    # train_x, train_y = preprocess_data(data_path)
-    # test_x, test_y = preprocess_data(data_path)
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['categorical_accuracy']) 
 
-    model1.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['categorical_accuracy']) 
+    history = model.fit(x_train, y_train,
+                    epochs=epochs,
+                    verbose=False,
+                    validation_data=(x_test, y_test),
+                    batch_size=batch_size
+                    )
+
+    loss, accuracy = model.evaluate(x_train, y_train, verbose=False)
+    print("Training Accuracy: {:.4f}".format(accuracy))
+    loss, accuracy = model.evaluate(x_test, y_test, verbose=False)
+    print("Testing Accuracy:  {:.4f}".format(accuracy))
+    # plot_history(history)
+ 
     # model.fit_generator()
-    model.fit(X, y, )
-    model1.history()
-    print(model1.summary())
+    model.history()
+
+    print(model.summary())
 
 
 

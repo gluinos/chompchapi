@@ -29,10 +29,9 @@ from sklearn.model_selection import train_test_split
 # X_test = sequence.pad_sequences(X_test, padding=post, maxlen=max_words_length)
 
 
-
 def generate_sequences(data):
     tokenizer = Tokenizer()
-    tokenizer.fit_on_texts([data])
+    tokenizer.fit_on_texts(data)
     vocab_size = len(tokenizer.word_index) + 1
     print("vocab_size: ", vocab_size)
 
@@ -41,12 +40,12 @@ def generate_sequences(data):
     input_sequences = []
     for line in data:
             tokenized_words = tokenizer.texts_to_sequences([line])[0]
-            # tokenizer.fit_on_texts(lines)
-            # sequences = tokenizer.texts_to_sequences(lines)
-            # print(token_list)
-            # for i in range(1, len(tokenized_words)):
-            #     seq = tokenized_words[i:i+1]
-            #     sentences.append(seq)
+            tokenizer.fit_on_texts(line)
+            sequences = tokenizer.texts_to_sequences(line)
+            print(token_list)
+            for i in range(1, len(tokenized_words)):
+                seq = tokenized_words[i:i+1]
+                sentences.append(seq)
                 
     # max_length = max([len(seq) for seq in sequences])
     return sentences
@@ -60,10 +59,10 @@ def generate_sequences(data):
 def preprocess_data(input_data):
     eencoder = LabelBinarizer()
     encoder.fit(train_labels)
-    y_train = encoder.transform(train_lables)
-    y_test = encoder.transform(test_labels
+    y_train = encoder.transform(train_labels)
+    y_test = encoder.transform(test_labels)
 
-    # labels = encoder.fit_transform(input_data{categories}) 
+    # labels = encoder.fit_transform(input_data{categsories}) 
     print(labels)
 
     X_train, X_test, y_train, y_test = train_test_split(sentences, labels, test_size=0.25, random_state=1000)
@@ -113,8 +112,14 @@ if __name__ == "__main__":
 
     model1.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['categorical_accuracy']) 
     # model.fit_generator()
-    model.fit(X, y, )
+    history = model.1fit(X_train, y_train,
+...                     epochs=100,
+...                     verbose=False,
+...                     validation_data=(X_test, y_test)
+...                     batch_size=batch_size)
+
     model1.history()
+
     print(model1.summary())
 
 
