@@ -82,7 +82,7 @@ if __name__ == "__main__":
     model = load_model('my_model_two.h5')
     test_sequences = tok.texts_to_sequences(statement_arr)
     test_sequences_matrix = sequence.pad_sequences(test_sequences,maxlen=max_len)
-    print statement_arr
-    print model.predict(test_sequences_matrix)
+    print (statement_arr)
+    print (model.predict(test_sequences_matrix))
 
 

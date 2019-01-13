@@ -2,10 +2,15 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 import json
+import string
 from ast import literal_eval
 
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.stem.porter import PorterStemmer
+
+from utils import clean_data
+
 
 # pd.set_option('display.expand_frame_repr', False)
 
@@ -447,9 +452,12 @@ if __name__ == "__main__":
     stop_words = set(stopwords.words('english'))
     stop_words.update(set(["'m", "n't", "'ve", "'re", "'s"]))
     new_texts = []
+
     for text in tqdm(df["text"]):
-        word_tokens = word_tokenize(text.lower())
-        filtered_text = " ".join([w for w in word_tokens if not w in stop_words])
+        filtered_text = clean_data(text)
+        # print(filtered_text)
+        # word_tokens = word_tokenize(text.lower())
+        # filtered_text = " ".join([w for w in word_tokens if not w in stop_words])
         new_texts.append(filtered_text)
     new_texts = np.array(new_texts)
     df["text"] = np.array(new_texts)
