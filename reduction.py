@@ -14,36 +14,36 @@ from utils import clean_data
 
 # pd.set_option('display.expand_frame_repr', False)
 
-# metacategories = [
-#     ["Coffee & Tea", "Fast Food", "Specialty Food", "Sandwiches", "Bakeries", "Cafes", "Delis",],
-#     ["Salad","Vegetarian", "Breakfast & Brunch",],
-#     ["Nightlife", "Wine & Spirits", "Beer", "Bars", "Breweries", "Wine Bars", "Pubs", "Sports Bars", "Cocktail",],
-#     ["Mexican", "Latin American", "Tapas/Small Plates", "Tacos","Tex-Mex", ],
-#     ["American (Traditional)", "American (New)", "Hot Dogs", "Burgers", "Diners", ],
-#     ["Barbeque", "Southern", "Hawaiian", "Pizza", "Soup", "Diners", ],
-#     ["Chicken Wings", "Health Markets", "Bagels", "Seafood", "Seafood Markets", "Butcher", "Cheese Shops", "Steakhouses", "Coffee",],
-#     ["Ethnic Food", "Italian", "French", "Greek"], 
-#     ["Asian Fusion", "Chinese", "Noodles", "Ramen", "Korean", "Taiwanese", "Sushi Bars", "Japanese", "Bubble Tea", "Vietnamese", "Poke", "Thai",],
-#     ["Indian", "Thai", "Pakistani", ],
-#     ["Desserts", "Ice Cream & Frozen Yogurt", "Candy Stores", "Donuts", "Shaved Ice", "Gelato", "Delicatessen", "Creperies", "Pancakes", "Waffles" ],
-# ]
 metacategories = [
-    ["Breakfast & Brunch","American (Traditional)","Coffee & Tea","Cafes","Sandwiches","Diners","Canadian (New)","Middle Eastern","Burgers","Mediterranean","Specialty Food","Ethnic Food","Steakhouses","Chinese","Salad","Bagels","Greek","Bakeries"],
-    ["Pizza","Italian","Bakeries","Greek","Mediterranean","Chinese","Cafes","Sandwiches","Thai","Breakfast & Brunch","French","Mexican","Vegetarian","Asian Fusion","Halal","Coffee & Tea","Hot Dogs","Seafood"],
-    ["Italian","Wine Bars","Breakfast & Brunch","Pubs","Beer","Wine & Spirits","Specialty Food","Seafood","Steakhouses","Mexican","Cafes"],
-    ["Fast Food","Burgers","Coffee & Tea","American (Traditional)","Chicken Wings","Ice Cream & Frozen Yogurt","Chicken Shop","Buffets","Barbeque","Asian Fusion","Breakfast & Brunch","Sandwiches","Chinese","Desserts","Korean","Seafood","Gluten-Free","Diners","Donuts"],
-    ["Sandwiches","Pizza","Italian","Salad","Chicken Wings","Breakfast & Brunch","Coffee & Tea","American (New)","Cafes","Specialty Food","Juice Bars & Smoothies","Bakeries","Delis","Soup","Bagels","Gluten-Free","Fast Food","Asian Fusion","Food Delivery Services"],
-    ["Nightlife","Bars","American (Traditional)","Sports Bars","Chicken Wings","Fast Food","Burgers","Breakfast & Brunch","Seafood","Asian Fusion","Sandwiches","Desserts","Cocktail Bars","Coffee & Tea","Pubs","Steakhouses","Barbeque","Gluten-Free"],
-    ["Mexican","Indian","Burgers","Thai","Japanese","Steakhouses","Diners","Hot Dogs","Latin American","Tex-Mex","Chinese","Pakistani","Dim Sum","Portuguese","Vegan","Vegetarian","Peruvian","Hawaiian","Tacos","Cafes"],
-    ["Vietnamese","Chinese","Seafood","Korean","Mexican","Buffets","Diners","Chicken Wings","Asian Fusion","Middle Eastern","Mediterranean","Breakfast & Brunch","Canadian (New)","Coffee & Tea"],
-    ["Event Planning & Services","Beer","Wine & Spirits","Breakfast & Brunch","Sports Bars","Pizza","Sandwiches","Caterers","Pubs","Italian","Cocktail Bars","Burgers","Wine Bars"],
-    ["Japanese","Sushi Bars","Mexican","American (Traditional)","Tex-Mex","Fast Food","Steakhouses","Latin American","Chinese","Event Planning & Services","Vegetarian","Seafood","Ramen","Korean","Asian Fusion","Vegan","Burgers","Desserts"],
-    ["Sandwiches","Delis","American (New)","Salad","Coffee & Tea","Soup","Burgers","Seafood","Cafes","Pizza","Asian Fusion","Vietnamese","Bars","Gluten-Free","Chinese","Italian","Desserts"],
-    ["Chinese","Cafes","American (New)","Sandwiches","Breakfast & Brunch","Canadian (New)","Barbeque","Sushi Bars","Coffee & Tea","French","Caribbean","Middle Eastern","Mediterranean","Delis","Filipino","Fish & Chips","Burgers","Steakhouses","Lebanese"],
-    ["Pubs","Seafood","Sports Bars","Lounges","Desserts","Japanese","Cocktail Bars","Italian","Event Planning & Services","Burgers","Asian Fusion","Canadian (New)","Specialty Food","Fast Food","Caterers","Mexican"],
-    ["Sandwiches","Thai","Chinese","Bakeries","Event Planning & Services","Halal","Seafood","Caterers","Mediterranean","Indian","Specialty Food","Cafes","Asian Fusion","Greek","Vietnamese","French"],
-    ["Sandwiches","Breakfast & Brunch","Pizza","Event Planning & Services","Pubs","Sports Bars","Italian","Salad","Beer","Wine & Spirits","Caterers","Specialty Food","Cocktail Bars","Wine Bars","Seafood","Comfort Food"],
+    ["Coffee & Tea", "Fast Food", "Specialty Food", "Sandwiches", "Bakeries", "Cafes", "Delis",],
+    ["Salad","Vegetarian", "Breakfast & Brunch",],
+    ["Nightlife", "Wine & Spirits", "Beer", "Bars", "Breweries", "Wine Bars", "Pubs", "Sports Bars", "Cocktail",],
+    ["Mexican", "Latin American", "Tapas/Small Plates", "Tacos","Tex-Mex", ],
+    ["American (Traditional)", "American (New)", "Hot Dogs", "Burgers", "Diners", ],
+    ["Barbeque", "Southern", "Hawaiian", "Pizza", "Soup", "Diners", ],
+    ["Chicken Wings", "Health Markets", "Bagels", "Seafood", "Seafood Markets", "Butcher", "Cheese Shops", "Steakhouses", "Coffee",],
+    ["Ethnic Food", "Italian", "French", "Greek", "Mediterranean"], 
+    ["Asian Fusion", "Chinese", "Noodles", "Ramen", "Korean", "Taiwanese", "Sushi Bars", "Japanese", "Bubble Tea", "Vietnamese", "Poke", "Thai",],
+    ["Indian", "Thai", "Pakistani", ],
+    ["Desserts", "Ice Cream & Frozen Yogurt", "Candy Stores", "Donuts", "Shaved Ice", "Gelato", "Delicatessen", "Creperies", "Pancakes", "Waffles" ],
 ]
+# metacategories = [
+#     ["Breakfast & Brunch","American (Traditional)","Coffee & Tea","Cafes","Sandwiches","Diners","Canadian (New)","Middle Eastern","Burgers","Mediterranean","Specialty Food","Ethnic Food","Steakhouses","Chinese","Salad","Bagels","Greek","Bakeries"],
+#     ["Pizza","Italian","Bakeries","Greek","Mediterranean","Chinese","Cafes","Sandwiches","Thai","Breakfast & Brunch","French","Mexican","Vegetarian","Asian Fusion","Halal","Coffee & Tea","Hot Dogs","Seafood"],
+#     ["Italian","Wine Bars","Breakfast & Brunch","Pubs","Beer","Wine & Spirits","Specialty Food","Seafood","Steakhouses","Mexican","Cafes"],
+#     ["Fast Food","Burgers","Coffee & Tea","American (Traditional)","Chicken Wings","Ice Cream & Frozen Yogurt","Chicken Shop","Buffets","Barbeque","Asian Fusion","Breakfast & Brunch","Sandwiches","Chinese","Desserts","Korean","Seafood","Gluten-Free","Diners","Donuts"],
+#     ["Sandwiches","Pizza","Italian","Salad","Chicken Wings","Breakfast & Brunch","Coffee & Tea","American (New)","Cafes","Specialty Food","Juice Bars & Smoothies","Bakeries","Delis","Soup","Bagels","Gluten-Free","Fast Food","Asian Fusion","Food Delivery Services"],
+#     ["Nightlife","Bars","American (Traditional)","Sports Bars","Chicken Wings","Fast Food","Burgers","Breakfast & Brunch","Seafood","Asian Fusion","Sandwiches","Desserts","Cocktail Bars","Coffee & Tea","Pubs","Steakhouses","Barbeque","Gluten-Free"],
+#     ["Mexican","Indian","Burgers","Thai","Japanese","Steakhouses","Diners","Hot Dogs","Latin American","Tex-Mex","Chinese","Pakistani","Dim Sum","Portuguese","Vegan","Vegetarian","Peruvian","Hawaiian","Tacos","Cafes"],
+#     ["Vietnamese","Chinese","Seafood","Korean","Mexican","Buffets","Diners","Chicken Wings","Asian Fusion","Middle Eastern","Mediterranean","Breakfast & Brunch","Canadian (New)","Coffee & Tea"],
+#     ["Event Planning & Services","Beer","Wine & Spirits","Breakfast & Brunch","Sports Bars","Pizza","Sandwiches","Caterers","Pubs","Italian","Cocktail Bars","Burgers","Wine Bars"],
+#     ["Japanese","Sushi Bars","Mexican","American (Traditional)","Tex-Mex","Fast Food","Steakhouses","Latin American","Chinese","Event Planning & Services","Vegetarian","Seafood","Ramen","Korean","Asian Fusion","Vegan","Burgers","Desserts"],
+#     ["Sandwiches","Delis","American (New)","Salad","Coffee & Tea","Soup","Burgers","Seafood","Cafes","Pizza","Asian Fusion","Vietnamese","Bars","Gluten-Free","Chinese","Italian","Desserts"],
+#     ["Chinese","Cafes","American (New)","Sandwiches","Breakfast & Brunch","Canadian (New)","Barbeque","Sushi Bars","Coffee & Tea","French","Caribbean","Middle Eastern","Mediterranean","Delis","Filipino","Fish & Chips","Burgers","Steakhouses","Lebanese"],
+#     ["Pubs","Seafood","Sports Bars","Lounges","Desserts","Japanese","Cocktail Bars","Italian","Event Planning & Services","Burgers","Asian Fusion","Canadian (New)","Specialty Food","Fast Food","Caterers","Mexican"],
+#     ["Sandwiches","Thai","Chinese","Bakeries","Event Planning & Services","Halal","Seafood","Caterers","Mediterranean","Indian","Specialty Food","Cafes","Asian Fusion","Greek","Vietnamese","French"],
+#     ["Sandwiches","Breakfast & Brunch","Pizza","Event Planning & Services","Pubs","Sports Bars","Italian","Salad","Beer","Wine & Spirits","Caterers","Specialty Food","Cocktail Bars","Wine Bars","Seafood","Comfort Food"],
+# ]
 num_metacategories = len(metacategories)
 d_metacategories = {}
 for imc,mc in enumerate(metacategories):
