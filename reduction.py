@@ -23,7 +23,7 @@ metacategories = [
     ["Barbeque", "Southern", "Hawaiian", "Pizza", "Soup", "Diners", ],
     ["Chicken Wings", "Health Markets", "Bagels", "Seafood", "Seafood Markets", "Butcher", "Cheese Shops", "Steakhouses", "Coffee",],
     ["Ethnic Food", "Italian", "French", "Greek", "Mediterranean"], 
-    ["Asian Fusion", "Chinese", "Noodles", "Ramen", "Korean", "Taiwanese", "Sushi Bars", "Japanese", "Bubble Tea", "Vietnamese", "Poke", "Thai",],
+    ["Asian Fusion", "Chinese", "Noodles", "Ramen", "Korean", "Taiwanese", "Sushi Bars", "Japanese", "Bubble Tea", "Vietnamese", "Poke", ],
     ["Indian", "Thai", "Pakistani", ],
     ["Desserts", "Ice Cream & Frozen Yogurt", "Candy Stores", "Donuts", "Shaved Ice", "Gelato", "Delicatessen", "Creperies", "Pancakes", "Waffles" ],
 ]
