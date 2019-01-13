@@ -12,10 +12,13 @@ from keras.utils import to_categorical
 from keras.models import load_model
 from keras.callbacks import EarlyStopping
 
+import time
 from tqdm import tqdm
 
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+
+from utils import clean_data
 
 from reduction import num_metacategories
 
@@ -23,9 +26,13 @@ def get_model(max_words, max_len):
     inputs = Input(name='inputs',shape=[max_len])
     layer = Embedding(max_words,50,input_length=max_len)(inputs)
     layer = LSTM(128)(layer)
+    layer = Dropout(0.1)(layer)
     layer = Dense(256)(layer)
-    layer = Activation('relu')(layer)
     layer = Dropout(0.5)(layer)
+    layer = Activation('relu')(layer)
+    layer = Dense(64)(layer)
+    layer = Dropout(0.5)(layer)
+    layer = Activation('relu')(layer)
     layer = Dense(num_metacategories)(layer)
     layer = Activation('sigmoid')(layer)
     model = Model(inputs=inputs,outputs=layer)
@@ -37,7 +44,8 @@ def get_model(max_words, max_len):
 if __name__ == "__main__":
 
     df = pd.read_pickle("combined_data.pkl")
-    df = df[:5000]
+    # df = df[:5000]
+    # df["text"] = df.text.str.join(" ")
 
     # Unpack column by column into an num_review-by-num_metacategories matrix again
     target_vecs = np.vstack([
@@ -45,8 +53,8 @@ if __name__ == "__main__":
         ]).T
 
 
-    max_words = 1500
-    max_len = 200
+    max_words = 2000
+    max_len = 10
     X = df.text
     Y = target_vecs
     le = LabelEncoder()
@@ -62,7 +70,7 @@ if __name__ == "__main__":
 
     model.fit(
             sequences_matrix,Y_train,
-            batch_size=128,epochs=1,
+            batch_size=512,epochs=15,
             validation_split=0.2,
             callbacks=[EarlyStopping(monitor='val_loss',min_delta=0.0001)]
             )
@@ -78,11 +86,13 @@ if __name__ == "__main__":
 
     # Now predict with a slightly insensitive sentence
     # NOTE: tok has to be fit on the X_train above or else the word vectors won't be correct
-    statement_arr = np.array(["the chicken tikka masala at this indian restaurant was absolutely dope. I can't wait to go back again and try out the chicken korma while watching the waiter serve me with a turban and give me naan"])
-    model = load_model('my_model_two.h5')
+    model = load_model('my_model.h5')
+    t0 = time.time()
+    statement_arr = np.array([" ".join(clean_data("the chicken tikka masala at this indian restaurant was absolutely dope. I can't wait to go back again and try out the chicken korma while watching the waiter serve me with a turban and give me naan"))])
     test_sequences = tok.texts_to_sequences(statement_arr)
     test_sequences_matrix = sequence.pad_sequences(test_sequences,maxlen=max_len)
     print (statement_arr)
     print (model.predict(test_sequences_matrix))
+    print time.time()-t0
 
 
