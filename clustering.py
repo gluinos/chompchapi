@@ -58,9 +58,8 @@ if __name__ == "__main__":
             vec[icateg] = categ_idxs[categ]
         vecs.append(vec)
     vecs = np.array(vecs)
-    print vecs
-
-    print ncategs
+    # print vecs
+    # print ncategs
         
 
     # tok = Tokenizer(num_words=ncategs,split=",")
@@ -107,3 +106,11 @@ if __name__ == "__main__":
     # print "2", all_categs_2d[kmeans.labels_  == 2]
     # print "3", all_categs_2d[kmeans.labels_  == 3]
     # print "4", all_categs_2d[kmeans.labels_  == 4]
+
+    from sklearn.cluster import KMeans
+    from sklearn.datasets import load_digits
+    from sklearn.decomposition import PCA
+    reduced_data = PCA(n_components=2).fit_transform(feat_vecs)
+    kmeans = KMeans(init='k-means++', n_clusters=15, n_init=15)
+    kmeans.fit(reduced_data)
+    plt.plot(reduced_data[:, 0], reduced_data[:, 1], 'k.', markersize=2)
