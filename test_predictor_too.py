@@ -23,30 +23,37 @@ from reduction import num_metacategories
 
 def get_model(max_words, max_len):
     inputs = Input(name='inputs',shape=[max_len])
-    layer = Embedding(max_words,150,input_length=max_len)(inputs)
+    layer = Embedding(max_words,50,input_length=max_len)(inputs)
     layer = LSTM(128)(layer)
     layer = Dense(256)(layer)
     layer = Activation('relu')(layer)
     layer = Dropout(0.50)(layer)
     layer = Dense(num_metacategories)(layer)
-    layer = Activation('sigmoid')(layer)
+    layer = Activation('softmax')(layer)
     model = Model(inputs=inputs,outputs=layer)
     # model = Sequential(inputs=inputs,outputs=layer)
 
     model.summary()
-    model.compile(loss='mse',optimizer=RMSprop(),metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
     return model
 
 def second_model(max_words, max_len):
     model = Sequential()
     # model.add(Embedding(vocab_size, 50(Specift how many dimensions to represent word), input_length=seq_length))
     # keras.layers.Embedding(input_dim, output_dim, embeddings_initializer='uniform', input_length=None)
-    model.add(Embedding(max_words, 150, input_length=max_len))
+    model.add(Embedding(max_words, 50, input_length=max_len))
     model.add(LSTM(128, return_sequences=True))
     model.add(Activation('relu'))
     model.add(Dropout(0.25))
 
-    model.add(LSTM(128))
+    model.add(LSTM(128, return_sequences=True))
+    model.add(Dropout(0.25))
+
+    model.add(LSTM(64, return_sequences=True)) 
+    model.add(Dropout(0.25))
+    model.add(Activation('relu'))
+    model.add(LSTM(32))
+
     model.add(Activation('relu'))
     model.add(Dropout(0.25))
 
@@ -55,7 +62,8 @@ def second_model(max_words, max_len):
     model.add(Dense(num_metacategories, activation='softmax'))
 
     model.summary()
-    model.compile(loss='mse',optimizer=RMSprop(),metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+    
 
     return model
 
@@ -72,7 +80,10 @@ if __name__ == "__main__":
 
     max_words = 1500
     max_len = 300
-    epochs = 100
+    epochs = 20
+    learning_rate = 0.1
+    epsilon = ''
+    decay = ''
 
     X = df.text
     Y = target_vecs
