@@ -57,7 +57,6 @@ if __name__ == "__main__":
     max_len = 10
     X = df.text
     Y = target_vecs
-    le = LabelEncoder()
     X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size=0.40)
     tok = Tokenizer(num_words=max_words)
     tok.fit_on_texts(X_train)
