@@ -144,6 +144,10 @@ class Predictor(object):
 
 if __name__ == "__main__":
 
+    import nltk
+    nltk.download("punkt")
+    nltk.download("stopwords")
+
     predictor = Predictor()
     predictor.load_data()
     # predictor.load_model()
