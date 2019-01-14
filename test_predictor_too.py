@@ -119,7 +119,7 @@ if __name__ == "__main__":
 
     # Now predict with a slightly insensitive sentence
     # NOTE: tok has to be fit on the X_train above or else the word vectors won't be correct
-    statement_arr = np.array(["the chicken tikka masala at this indian restaurant was absolutely dope. I can't wait to go back again and try out the chicken korma while watching the waiter serve me with a turban and give me naan"])
+    statement_arr = np.array([" ".join(clean_data("the chicken tikka masala at this indian restaurant was great"))])
     # model = load_model('my_model_two.h5')
     test_sequences = tok.texts_to_sequences(statement_arr)
     test_sequences_matrix = sequence.pad_sequences(test_sequences,maxlen=max_len)
